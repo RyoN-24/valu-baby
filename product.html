@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rosé Tulle Dress — VALÚ Baby</title>
+    <meta name="description"
+        content="Rosé Tulle Dress — Pieza limitada de la colección Blush. Confeccionada con los tejidos más delicados para sus primeros momentos.">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+</head>
+
+<body>
+
+    <!-- ========== Navigation ========== -->
+    <nav class="nav scrolled" id="navbar">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__brand">
+                VALÚ
+                <span>Baby</span>
+            </a>
+            <ul class="nav__links" id="navLinks">
+                <li><a href="index.html" class="nav__link">Home</a></li>
+                <li><a href="product.html" class="nav__link">Collection</a></li>
+                <li><a href="about.html" class="nav__link">Our Story</a></li>
+                <li><a href="index.html#waitlist" class="nav__link">Early Access</a></li>
+            </ul>
+            <button class="nav__toggle" id="navToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========== Product Page ========== -->
+    <section class="product-page">
+        <div class="product-page__inner">
+
+            <!-- Gallery -->
+            <div class="product-gallery reveal">
+                <div class="product-gallery__main" id="mainImage">
+                    <img src="https://images.unsplash.com/photo-1519689373023-dd07c7988603?w=1200&q=85"
+                        alt="Rosé Tulle Dress - Main View">
+                </div>
+                <div class="product-gallery__thumbs">
+                    <div class="product-gallery__thumb active" data-index="0"
+                        style="background-image: url('https://images.unsplash.com/photo-1519689373023-dd07c7988603?w=300&q=80'); background-size: cover; background-position: center;">
+                    </div>
+                    <div class="product-gallery__thumb" data-index="1"
+                        style="background-image: url('https://images.unsplash.com/photo-1519238400177-d740f7d28e61?w=300&q=80'); background-size: cover; background-position: center;">
+                    </div>
+                    <div class="product-gallery__thumb" data-index="2"
+                        style="background-image: url('https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=300&q=80'); background-size: cover; background-position: center;">
+                    </div>
+                    <div class="product-gallery__thumb" data-index="3"
+                        style="background-image: url('https://images.unsplash.com/photo-1522771930-78848d9293e8?w=300&q=80'); background-size: cover; background-position: center;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Details -->
+            <div class="product-details reveal reveal-delay-1">
+                <p class="product-details__eyebrow">Collection 01 — Blush</p>
+                <h1 class="product-details__name">Rosé Tulle Dress</h1>
+                <p class="product-details__price">S/ 189.00</p>
+                <div class="product-details__stock">
+                    Limited Units Available
+                </div>
+
+                <!-- Size Selector -->
+                <div class="size-selector">
+                    <label class="size-selector__label">Select Size</label>
+                    <div class="size-selector__options">
+                        <button class="size-selector__btn" data-size="0-3M">0-3M</button>
+                        <button class="size-selector__btn" data-size="3-6M">3-6M</button>
+                        <button class="size-selector__btn selected" data-size="6-12M">6-12M</button>
+                        <button class="size-selector__btn" data-size="12-18M">12-18M</button>
+                        <button class="size-selector__btn" data-size="18-24M">18-24M</button>
+                    </div>
+                </div>
+
+                <!-- Add to Bag -->
+                <button class="btn btn--primary product-details__add-btn" id="addToBag">
+                    Add to Bag
+                </button>
+
+                <!-- Product Info Accordion -->
+                <div class="product-info">
+                    <div class="product-info__item open">
+                        <button class="product-info__header" aria-expanded="true">
+                            Description
+                            <span class="product-info__icon"></span>
+                        </button>
+                        <div class="product-info__body">
+                            <div class="product-info__body-inner">
+                                <p>Vestido de tul en tono rosé con delicados detalles de encaje en el cuello y los
+                                    puños. Una pieza pensada para momentos especiales — suave contra su piel, elegante
+                                    en cada fotografía. Diseñada para hacerla brillar en sus primeras memorias.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-info__item">
+                        <button class="product-info__header" aria-expanded="false">
+                            Fabric Details
+                            <span class="product-info__icon"></span>
+                        </button>
+                        <div class="product-info__body">
+                            <div class="product-info__body-inner">
+                                <p><strong>Composición:</strong> 70% Algodón orgánico, 30% Tul de nylon suave</p>
+                                <p><strong>Forro:</strong> 100% Algodón pima</p>
+                                <p><strong>Cuidado:</strong> Lavado a mano recomendado. No usar secadora.</p>
+                                <p><strong>Origen del tejido:</strong> Seleccionado de proveedores premium certificados.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-info__item">
+                        <button class="product-info__header" aria-expanded="false">
+                            Size Guide
+                            <span class="product-info__icon"></span>
+                        </button>
+                        <div class="product-info__body">
+                            <div class="product-info__body-inner">
+                                <p><strong>0-3M:</strong> Hasta 62 cm / 5.5 kg</p>
+                                <p><strong>3-6M:</strong> 62–68 cm / 5.5–8 kg</p>
+                                <p><strong>6-12M:</strong> 68–76 cm / 8–10 kg</p>
+                                <p><strong>12-18M:</strong> 76–83 cm / 10–12 kg</p>
+                                <p><strong>18-24M:</strong> 83–90 cm / 12–14 kg</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-info__item">
+                        <button class="product-info__header" aria-expanded="false">
+                            Exchange Policy
+                            <span class="product-info__icon"></span>
+                        </button>
+                        <div class="product-info__body">
+                            <div class="product-info__body-inner">
+                                <p>Aceptamos cambios dentro de los 7 días posteriores a la recepción del pedido. El
+                                    producto debe estar en su empaque original, sin uso y con etiquetas. No realizamos
+                                    devoluciones de dinero — solo cambios por otra talla o pieza de igual valor.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ========== Narrative Banner ========== -->
+    <section class="narrative section--lg">
+        <div class="narrative__inner reveal">
+            <p class="narrative__quote">
+                Made to be worn softly. Made to be remembered.
+            </p>
+        </div>
+    </section>
+
+    <!-- ========== Footer ========== -->
+    <footer class="footer">
+        <div class="footer__inner">
+            <div class="footer__col">
+                <p class="footer__brand">
+                    VALÚ
+                    <span>Baby</span>
+                </p>
+                <p style="font-size: 0.82rem; color: var(--mid-gray); max-width: 250px; margin-top: 0.5rem;">
+                    Curated pieces for her most delicate moments.
+                </p>
+            </div>
+            <div class="footer__col">
+                <h4>Navigate</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="product.html">Collection</a></li>
+                    <li><a href="about.html">Our Story</a></li>
+                </ul>
+            </div>
+            <div class="footer__col">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a></li>
+                    <li><a href="mailto:hello@valubaby.com">hello@valubaby.com</a></li>
+                </ul>
+            </div>
+            <div class="footer__col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Exchange Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <p>&copy; 2026 VALÚ Baby. All rights reserved.</p>
+            <p>Made with care.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

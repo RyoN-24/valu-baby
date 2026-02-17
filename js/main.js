@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
       header.addEventListener('click', () => {
         const item = header.parentElement;
         const isOpen = item.classList.contains('open');
-        
+
         // Close all
         document.querySelectorAll('.product-info__item').forEach(i => {
           i.classList.remove('open');
@@ -106,19 +106,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const thumbs = document.querySelectorAll('.product-gallery__thumb');
   const mainImage = document.getElementById('mainImage');
   if (thumbs.length > 0 && mainImage) {
-    const gradients = [
-      'linear-gradient(145deg, #fdf1f1 0%, #fbe3e3 50%, #f9d6d5 100%)',
-      'linear-gradient(145deg, #fbe3e3 0%, #f9d6d5 50%, #f6c8c7 100%)',
-      'linear-gradient(145deg, #f9d6d5 0%, #f6c8c7 50%, #eebbbb 100%)',
-      'linear-gradient(145deg, #f6c8c7 0%, #eebbbb 50%, #fdf1f1 100%)'
+    const images = [
+      'https://images.unsplash.com/photo-1519689373023-dd07c7988603?w=1200&q=85',
+      'https://images.unsplash.com/photo-1519238400177-d740f7d28e61?w=1200&q=85',
+      'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=1200&q=85',
+      'https://images.unsplash.com/photo-1522771930-78848d9293e8?w=1200&q=85'
     ];
 
     thumbs.forEach((thumb, index) => {
-      thumb.style.background = gradients[index];
       thumb.addEventListener('click', () => {
         thumbs.forEach(t => t.classList.remove('active'));
         thumb.classList.add('active');
-        mainImage.style.background = gradients[index];
+        const img = mainImage.querySelector('img');
+        if (img) {
+          img.src = images[index];
+        }
       });
     });
   }
@@ -129,11 +131,11 @@ document.addEventListener('DOMContentLoaded', () => {
     addToBag.addEventListener('click', () => {
       const selectedSize = document.querySelector('.size-selector__btn.selected');
       const size = selectedSize ? selectedSize.dataset.size : 'N/A';
-      
+
       // Button animation
       addToBag.textContent = '✓ Added to Bag';
       addToBag.style.backgroundColor = 'var(--near-black)';
-      
+
       setTimeout(() => {
         addToBag.textContent = 'Add to Bag';
         addToBag.style.backgroundColor = '';
@@ -149,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
       joinListBtn.textContent = '✓ You\'re on the List';
       joinListBtn.style.backgroundColor = '#fff';
       joinListBtn.style.color = 'var(--near-black)';
-      
+
       setTimeout(() => {
         joinListBtn.textContent = 'Join the List';
         joinListBtn.style.backgroundColor = '';
@@ -163,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     anchor.addEventListener('click', (e) => {
       const href = anchor.getAttribute('href');
       if (href === '#') return;
-      
+
       const target = document.querySelector(href);
       if (target) {
         e.preventDefault();
