@@ -177,4 +177,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ---------- FAQ Accordion ----------
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-item__question');
+    if (question) {
+      question.addEventListener('click', () => {
+        const isOpen = item.getAttribute('aria-expanded') === 'true';
+
+        // Close all other FAQ items
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item) {
+            otherItem.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        // Toggle current item
+        item.setAttribute('aria-expanded', !isOpen);
+        question.setAttribute('aria-expanded', !isOpen);
+      });
+    }
+  });
+
 });
