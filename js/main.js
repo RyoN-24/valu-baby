@@ -199,4 +199,66 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // ---------- Email Popup ----------
+  const emailPopup = document.getElementById('emailPopup');
+  const emailOverlay = document.getElementById('emailOverlay');
+  const closePopupBtn = document.getElementById('closePopup');
+  const emailForm = document.getElementById('emailForm');
+  const joinListBtn = document.getElementById('joinListBtn');
+
+  // Show popup after 5 seconds if not previously closed
+  if (!localStorage.getItem('emailPopupClosed')) {
+    setTimeout(() => {
+      emailPopup.classList.add('active');
+      emailOverlay.classList.add('active');
+    }, 5000);
+  }
+
+  // Show popup when "Join the List" button is clicked
+  if (joinListBtn) {
+    joinListBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      emailPopup.classList.add('active');
+      emailOverlay.classList.add('active');
+    });
+  }
+
+  // Close popup
+  function closeEmailPopup() {
+    emailPopup.classList.remove('active');
+    emailOverlay.classList.remove('active');
+    localStorage.setItem('emailPopupClosed', 'true');
+  }
+
+  if (closePopupBtn) {
+    closePopupBtn.addEventListener('click', closeEmailPopup);
+  }
+
+  if (emailOverlay) {
+    emailOverlay.addEventListener('click', closeEmailPopup);
+  }
+
+  // Handle form submission
+  if (emailForm) {
+    emailForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const emailInput = emailForm.querySelector('input[type="email"]');
+      const email = emailInput.value;
+
+      // Store email (in real app, send to backend)
+      console.log('Email subscribed:', email);
+
+      // Show success message
+      emailForm.innerHTML = `
+        <div style="text-align: center; padding: 1rem;">
+          <p style="font-size: 1.1rem; color: var(--blush-deep); margin-bottom: 0.5rem;">✓ ¡Gracias!</p>
+          <p style="font-size: 0.9rem; color: var(--mid-gray);">Te avisaremos de nuevas colecciones.</p>
+        </div>
+      `;
+
+      // Auto close after 2 seconds
+      setTimeout(closeEmailPopup, 2000);
+    });
+  }
+
 });

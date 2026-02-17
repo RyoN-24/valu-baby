@@ -25,7 +25,7 @@
         <li><a href="index.html" class="nav__link">Home</a></li>
         <li><a href="product.html" class="nav__link">Collection</a></li>
         <li><a href="about.html" class="nav__link">Our Story</a></li>
-        <li><a href="#waitlist" class="nav__link">Early Access</a></li>
+        <li><a href="faq.html" class="nav__link">FAQ</a></li>
       </ul>
       <button class="nav__toggle" id="navToggle" aria-label="Menu">
         <span></span>
@@ -52,14 +52,19 @@
     </div>
   </section>
 
+  <!-- ========== Shipping Banner ========== -->
+  <div class="shipping-banner reveal">
+    <p>🚚 <strong>Envío gratis</strong> en Lima en compras mayores a S/ 150 · Entregas en 24-48h</p>
+  </div>
+
   <!-- ========== Collection Section ========== -->
   <section class="collection section--lg" id="collection">
-    <div class="collection__header reveal">
+    <div class="collection__header container--narrow reveal">
       <p class="collection__eyebrow">The Collection</p>
       <h2 class="collection__title">Selected Pieces</h2>
     </div>
     <div class="collection__grid">
-      <!-- Product 1 -->
+      <!-- Product 1 - Vestidos -->
       <a href="product.html" class="product-card reveal reveal-delay-1">
         <div class="product-card__image">
           <img src="https://images.unsplash.com/photo-1519689373023-dd07c7988603?w=800&q=80" alt="Rosé Tulle Dress"
@@ -74,37 +79,232 @@
       <!-- Product 2 -->
       <a href="product.html" class="product-card reveal reveal-delay-2">
         <div class="product-card__image">
+          <img src="https://images.unsplash.com/photo-1596870230751-ebdfce98ec42?w=800&q=80" alt="Pearl Lace Dress"
+            loading="lazy">
+          <span class="product-card__badge">Limited</span>
+        </div>
+        <div class="product-card__info">
+          <h3 class="product-card__name">Pearl Lace Dress</h3>
+          <p class="product-card__price">S/ 199.00</p>
+        </div>
+      </a>
+      <!-- Product 3 -->
+      <a href="product.html" class="product-card reveal reveal-delay-3">
+        <div class="product-card__image">
+          <img src="https://images.unsplash.com/photo-1515488764276-beab7607c1e6?w=800&q=80" alt="Ivory Flower Gown"
+            loading="lazy">
+          <span class="product-card__badge">New</span>
+        </div>
+        <div class="product-card__info">
+          <h3 class="product-card__name">Ivory Flower Gown</h3>
+          <p class="product-card__price">S/ 219.00</p>
+        </div>
+      </a>
+      <!-- Product 4 -->
+      <a href="product.html" class="product-card reveal">
+        <div class="product-card__image">
+          <img src="https://images.unsplash.com/photo-1519238400177-d740f7d28e61?w=800&q=80" alt="Ceremony Dress"
+            loading="lazy">
+          <span class="product-card__badge">Special</span>
+        </div>
+        <div class="product-card__info">
+          <h3 class="product-card__name">Ceremony Dress</h3>
+          <p class="product-card__price">S/ 239.00</p>
+        </div>
+      </a>
+      <!-- Product 5 -->
+      <a href="product.html" class="product-card reveal">
+        <div class="product-card__image">
+          <img src="https://images.unsplash.com/photo-1522771930-78848d9293e8?w=800&q=80" alt="Silk Touch Dress"
+            loading="lazy">
+          <span class="product-card__badge">Premium</span>
+        </div>
+        <div class="product-card__info">
+          <h3 class="product-card__name">Silk Touch Dress</h3>
+          <p class="product-card__price">S/ 259.00</p>
+        </div>
+      </a>
+
+      <!-- Product 6 - Conjuntos -->
+      <a href="product.html" class="product-card reveal">
+        <div class="product-card__image">
           <img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=800&q=80" alt="Blush Knit Set"
             loading="lazy">
-          <span class="product-card__badge">Limited Stock</span>
+          <span class="product-card__badge">Best Seller</span>
         </div>
         <div class="product-card__info">
           <h3 class="product-card__name">Blush Knit Set</h3>
           <p class="product-card__price">S/ 159.00</p>
         </div>
       </a>
-      <!-- Product 3 -->
-      <a href="product.html" class="product-card reveal reveal-delay-3">
+      <!-- Product 7 -->
+      <a href="product.html" class="product-card reveal">
         <div class="product-card__image">
-          <img src="https://images.unsplash.com/photo-1522771930-78848d9293e8?w=800&q=80" alt="Pearl Linen Romper"
+          <img src="https://images.unsplash.com/photo-1519238399-cadf2d6eb365?w=800&q=80" alt="Soft Cotton Set"
             loading="lazy">
-          <span class="product-card__badge">Only 3 Left</span>
+          <span class="product-card__badge">Organic</span>
+        </div>
+        <div class="product-card__info">
+          <h3 class="product-card__name">Soft Cotton Set</h3>
+          <p class="product-card__price">S/ 139.00</p>
+        </div>
+      </a>
+      <!-- Product 8 -->
+      <a href="product.html" class="product-card reveal">
+        <div class="product-card__image">
+          <img src="https://images.unsplash.com/photo-1587897773780-fe72310b6c5f?w=800&q=80" alt="Blush Organic Set"
+            loading="lazy">
+          <span class="product-card__badge">Only 2 Left</span>
+        </div>
+        <div class="product-card__info">
+          <h3 class="product-card__name">Blush Organic Set</h3>
+          <p class="product-card__price">S/ 169.00</p>
+        </div>
+      </a>
+      <!-- Product 9 -->
+      <a href="product.html" class="product-card reveal">
+        <div class="product-card__image">
+          <img src="https://images.unsplash.com/photo-1452857297128-d9c29adba80b?w=800&q=80" alt="Gentle Linen Set"
+            loading="lazy">
+          <span class="product-card__badge">Limited</span>
+        </div>
+        <div class="product-card__info">
+          <h3 class="product-card__name">Gentle Linen Set</h3>
+          <p class="product-card__price">S/ 149.00</p>
+        </div>
+      </a>
+
+      <!-- Product 10 - Rompers -->
+      <a href="product.html" class="product-card reveal">
+        <div class="product-card__image">
+          <img src="https://images.unsplash.com/photo-1519689373023-4000c7a36f49?w=800&q=80" alt="Pearl Linen Romper"
+            loading="lazy">
+          <span class="product-card__badge">New Arrival</span>
         </div>
         <div class="product-card__info">
           <h3 class="product-card__name">Pearl Linen Romper</h3>
           <p class="product-card__price">S/ 169.00</p>
         </div>
       </a>
-      <!-- Product 4 -->
+      <!-- Product 11 -->
       <a href="product.html" class="product-card reveal">
         <div class="product-card__image">
-          <img src="https://images.unsplash.com/photo-1452857297128-d9c29adba80b?w=800&q=80" alt="Soft Cotton Bloomer"
+          <img src="https://images.unsplash.com/photo-1621451318271-c48c1707109e?w=800&q=80" alt="Floral Linen Romper"
             loading="lazy">
-          <span class="product-card__badge">New Arrival</span>
+          <span class="product-card__badge">Limited</span>
+        </div>
+        <div class="product-card__info">
+          <h3 class="product-card__name">Floral Linen Romper</h3>
+          <p class="product-card__price">S/ 139.00</p>
+        </div>
+      </a>
+      <!-- Product 12 -->
+      <a href="product.html" class="product-card reveal">
+        <div class="product-card__image">
+          <img src="https://images.unsplash.com/photo-1503919545889-aef636e10ad4?w=800&q=80" alt="Soft Rose Romper"
+            loading="lazy">
+          <span class="product-card__badge">Best Seller</span>
+        </div>
+        <div class="product-card__info">
+          <h3 class="product-card__name">Soft Rose Romper</h3>
+          <p class="product-card__price">S/ 129.00</p>
+        </div>
+      </a>
+      <!-- Product 13 -->
+      <a href="product.html" class="product-card reveal">
+        <div class="product-card__image">
+          <img src="https://images.unsplash.com/photo-1596870230751-ebdfce98ec42?w=800&q=80" alt="Pearl Button Romper"
+            loading="lazy">
+          <span class="product-card__badge">Only 4 Left</span>
+        </div>
+        <div class="product-card__info">
+          <h3 class="product-card__name">Pearl Button Romper</h3>
+          <p class="product-card__price">S/ 149.00</p>
+        </div>
+      </a>
+      <!-- Product 14 -->
+      <a href="product.html" class="product-card reveal">
+        <div class="product-card__image">
+          <img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=800&q=80" alt="Soft Cotton Bloomer"
+            loading="lazy">
+          <span class="product-card__badge">New</span>
         </div>
         <div class="product-card__info">
           <h3 class="product-card__name">Soft Cotton Bloomer</h3>
           <p class="product-card__price">S/ 129.00</p>
+        </div>
+      </a>
+
+      <!-- Product 15 - Accesorios -->
+      <a href="product.html" class="product-card reveal">
+        <div class="product-card__image">
+          <img src="https://images.unsplash.com/photo-1616683693484-1acd0a0e1c0e?w=800&q=80" alt="Delicate Headband"
+            loading="lazy">
+          <span class="product-card__badge">Accessory</span>
+        </div>
+        <div class="product-card__info">
+          <h3 class="product-card__name">Delicate Headband</h3>
+          <p class="product-card__price">S/ 39.00</p>
+        </div>
+      </a>
+      <!-- Product 16 -->
+      <a href="product.html" class="product-card reveal">
+        <div class="product-card__image">
+          <img src="https://images.unsplash.com/photo-1617333146796-5c9bde93650e?w=800&q=80" alt="Rose Bonnet"
+            loading="lazy">
+          <span class="product-card__badge">New</span>
+        </div>
+        <div class="product-card__info">
+          <h3 class="product-card__name">Rose Bonnet</h3>
+          <p class="product-card__price">S/ 49.00</p>
+        </div>
+      </a>
+      <!-- Product 17 -->
+      <a href="product.html" class="product-card reveal">
+        <div class="product-card__image">
+          <img src="https://images.unsplash.com/photo-1608376681182-196826d137f4?w=800&q=80" alt="Organic Booties"
+            loading="lazy">
+          <span class="product-card__badge">Organic</span>
+        </div>
+        <div class="product-card__info">
+          <h3 class="product-card__name">Organic Booties</h3>
+          <p class="product-card__price">S/ 59.00</p>
+        </div>
+      </a>
+      <!-- Product 18 -->
+      <a href="product.html" class="product-card reveal">
+        <div class="product-card__image">
+          <img src="https://images.unsplash.com/photo-1515488764276-beab7607c1e6?w=800&q=80" alt="Cashmere Blanket"
+            loading="lazy">
+          <span class="product-card__badge">Limited</span>
+        </div>
+        <div class="product-card__info">
+          <h3 class="product-card__name">Cashmere Blanket</h3>
+          <p class="product-card__price">S/ 189.00</p>
+        </div>
+      </a>
+      <!-- Product 19 -->
+      <a href="product.html" class="product-card reveal">
+        <div class="product-card__image">
+          <img src="https://images.unsplash.com/photo-1587897773780-fe72310b6c5f?w=800&q=80" alt="Garden Set"
+            loading="lady">
+          <span class="product-card__badge">Best Seller</span>
+        </div>
+        <div class="product-card__info">
+          <h3 class="product-card__name">Garden Set</h3>
+          <p class="product-card__price">S/ 119.00</p>
+        </div>
+      </a>
+      <!-- Product 20 -->
+      <a href="product.html" class="product-card reveal">
+        <div class="product-card__image">
+          <img src="https://images.unsplash.com/photo-1519689373023-dd07c7988603?w=800&q=80" alt="Angel Wings Set"
+            loading="lazy">
+          <span class="product-card__badge">Special</span>
+        </div>
+        <div class="product-card__info">
+          <h3 class="product-card__name">Angel Wings Set</h3>
+          <p class="product-card__price">S/ 179.00</p>
         </div>
       </a>
     </div>
@@ -196,6 +396,7 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="product.html">Collection</a></li>
           <li><a href="about.html">Our Story</a></li>
+          <li><a href="faq.html">FAQ</a></li>
         </ul>
       </div>
       <div class="footer__col">
@@ -203,6 +404,7 @@
         <ul>
           <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a></li>
           <li><a href="mailto:hello@valubaby.com">hello@valubaby.com</a></li>
+          <li><a href="https://wa.me/51999999999" target="_blank" rel="noopener">WhatsApp</a></li>
         </ul>
       </div>
       <div class="footer__col">
@@ -214,11 +416,47 @@
         </ul>
       </div>
     </div>
+
+    <!-- Trust Badges -->
+    <div class="trust-badges">
+      <div class="trust-badge">
+        <span class="trust-badge__icon">🔒</span>
+        <span>Pago 100% Seguro</span>
+      </div>
+      <div class="trust-badge">
+        <span class="trust-badge__icon">🔄</span>
+        <span>Cambios sin costo (7 días)</span>
+      </div>
+      <div class="trust-badge">
+        <span class="trust-badge__icon">🌿</span>
+        <span>Algodón orgánico certificado</span>
+      </div>
+      <div class="trust-badge">
+        <span class="trust-badge__icon">📦</span>
+        <span>Envío express disponible</span>
+      </div>
+    </div>
+
     <div class="footer__bottom">
       <p>&copy; 2026 VALÚ Baby. All rights reserved.</p>
       <p>Made with care.</p>
     </div>
   </footer>
+
+  <!-- Email Popup Overlay -->
+  <div class="email-popup-overlay" id="emailOverlay"></div>
+
+  <!-- Email Popup -->
+  <div class="email-popup" id="emailPopup">
+    <button class="email-popup__close" id="closePopup" aria-label="Close">×</button>
+    <h2 class="email-popup__title">Join Our Exclusive List</h2>
+    <p class="email-popup__text">Be the first to know about new collections, limited drops, and special offers.</p>
+    <form class="email-popup__form" id="emailForm">
+      <input type="email" class="email-popup__input" placeholder="Tu email" required>
+      <button type="submit" class="email-popup__submit">Subscribe</button>
+      <p class="email-popup__privacy">We respect your privacy. Unsubscribe at any time.</p>
+    </form>
+  </div>
 
   <!-- WhatsApp Floating Button -->
   <a href="https://wa.me/51999999999?text=Hola%2C%20me%20interesa%20la%20colecci%C3%B3n%20VALÚ%20Baby"
