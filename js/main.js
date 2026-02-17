@@ -204,18 +204,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const emailOverlay = document.getElementById('emailOverlay');
   const closePopupBtn = document.getElementById('closePopup');
   const emailForm = document.getElementById('emailForm');
-  const joinListBtn = document.getElementById('joinListBtn');
 
   // Show popup after 5 seconds if not previously closed
-  if (!localStorage.getItem('emailPopupClosed')) {
+  if (emailPopup && emailOverlay && !localStorage.getItem('emailPopupClosed')) {
     setTimeout(() => {
       emailPopup.classList.add('active');
       emailOverlay.classList.add('active');
     }, 5000);
   }
 
-  // Show popup when "Join the List" button is clicked
-  if (joinListBtn) {
+  // Show popup when "Join the List" button is clicked (reuse existing joinListBtn variable)
+  if (joinListBtn && emailPopup && emailOverlay) {
+    // Add second event listener for popup
     joinListBtn.addEventListener('click', (e) => {
       e.preventDefault();
       emailPopup.classList.add('active');
