@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo — VALÚ Baby</title>
+    <meta name="description" content="Explora nuestra colección completa de ropa para bebés">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/quick-add.css">
+    <link rel="stylesheet" href="css/catalog.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+</head>
+
+<body>
+
+    <!-- ========== Navigation ========== -->
+    <nav class="nav" id="navbar">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__brand">
+                VALÚ
+                <span>Baby</span>
+            </a>
+            <ul class="nav__links" id="navLinks">
+                <li><a href="index.html" class="nav__link">Home</a></li>
+                <li><a href="catalog.html" class="nav__link active">Catálogo</a></li>
+                <li><a href="about.html" class="nav__link">Our Story</a></li>
+                <li><a href="faq.html" class="nav__link">FAQ</a></li>
+            </ul>
+            <button class="cart-toggle" id="cartToggle" aria-label="Shopping Cart">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                <span class="cart-badge" id="cartBadge">0</span>
+            </button>
+            <button class="nav__toggle" id="navToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========== Catalog Header ========== -->
+    <section class="catalog-header">
+        <div class="container--narrow">
+            <h1>Nuestra Colección</h1>
+            <p>Descubre todas nuestras piezas únicas</p>
+        </div>
+    </section>
+
+    <!-- ========== Category Filters ========== -->
+    <section class="catalog-filters">
+        <div class="container--narrow">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-category="all">Todos</button>
+                <button class="filter-btn" data-category="Vestidos">Vestidos</button>
+                <button class="filter-btn" data-category="Conjuntos">Conjuntos</button>
+                <button class="filter-btn" data-category="Rompers">Rompers</button>
+                <button class="filter-btn" data-category="Accesorios">Accesorios</button>
+                <button class="filter-btn" data-category="Especial">Especial</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== Products Grid ========== -->
+    <section class="catalog-products">
+        <div class="container--wide">
+
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state">
+                <div class="spinner"></div>
+                <p>Cargando productos...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="errorState" class="error-state" style="display: none;">
+                <p>⚠️ No se pudieron cargar los productos</p>
+                <p class="error-message">Asegúrate de que el servidor backend esté corriendo en
+                    <code>localhost:3001</code>
+                </p>
+                <button class="btn btn--primary" onclick="location.reload()">Reintentar</button>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="productsGrid" class="collection__grid" style="display: none;">
+                <!-- Dynamic products loaded from API -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-sidebar__header">
+            <h2>Mi Carrito</h2>
+            <button class="cart-close" id="cartClose" aria-label="Cerrar carrito">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <div class="cart-sidebar__body">
+            <div id="emptyCart" class="cart-empty">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                <p>Tu carrito está vacío</p>
+                <a href="catalog.html" class="btn btn--primary">Ver Catálogo</a>
+            </div>
+
+            <div id="cartItems" class="cart-items">
+                <!-- Dynamic cart items -->
+            </div>
+        </div>
+
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Subtotal:</span>
+                <span id="cartSubtotal">S/ 0.00</span>
+            </div>
+            <button class="btn btn--primary btn--full" id="checkoutBtn">
+                Proceder al Pago
+            </button>
+            <p class="cart-shipping-note">Envío calculado en el checkout</p>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <script src="js/api.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/quick-add.js"></script>
+    <script src="js/catalog.js"></script>
+
+</body>
+
+</html>

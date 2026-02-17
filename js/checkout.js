@@ -162,23 +162,77 @@ class CheckoutPage {
             return;
         }
 
-        // Build order object
+        // Build order object for backend
         const orderData = {
-            ...formData,
-            items: this.cart.items,
+            customerName: formData.customerName,
+            customerEmail: formData.customerEmail,
+            customerPhone: formData.customerPhone,
+            customerDNI: formData.customerDNI || '',
+            shippingAddress: formData.shippingAddress,
+            items: this.cart.items.map(item => ({
+                productId: item.id,
+                quantity: item.quantity,
+                size: item.size,
+                price: item.price
+            })),
             subtotal: parseFloat(this.cart.getTotals().subtotal),
             shipping: this.shippingCost,
-            shippingMethod: shippingMethod.value,
             total: parseFloat(this.cart.getTotals().subtotal) + this.shippingCost,
             paymentMethod: paymentMethod.value,
             notes: ''
         };
 
-        // Save order to localStorage temporarily
-        localStorage.setItem('pending_order', JSON.stringify(orderData));
+        // Send order to backend
+        this.submitOrder(orderData, paymentMethod.value);
+    }
 
-        // Redirect to confirmation page with payment method
-        window.location.href = `order-confirmation.html?payment=${paymentMethod.value}`;
+    async submitOrder(orderData, paymentMethod) {
+        const placeOrderBtn = document.getElementById('placeOrderBtn');
+
+        try {
+            // Disable button and show loading
+            if (placeOrderBtn) {
+                placeOrderBtn.disabled = true;
+                placeOrderBtn.textContent = 'Procesando...';
+            }
+
+            // Send to backend API
+            const response = await window.api.createOrder(orderData);
+
+            if (response.success) {
+                // Save order data to localStorage for confirmation page
+                const fullOrder = {
+                    ...orderData,
+                    orderId: response.data.id,
+                    orderNumber: response.data.orderNumber,
+                    orderDate: response.data.createdAt,
+                    status: response.data.status
+                };
+
+                localStorage.setItem('pending_order', JSON.stringify(fullOrder));
+
+                // Clear cart
+                if (this.cart) {
+                    this.cart.clear();
+                }
+
+                // Redirect to confirmation
+                window.location.href = `order-confirmation.html?payment=${paymentMethod}`;
+
+            } else {
+                throw new Error(response.message || 'Error al crear la orden');
+            }
+
+        } catch (error) {
+            console.error('Error submitting order:', error);
+            alert('Hubo un error al procesar tu pedido. Por favor intenta de nuevo.');
+
+            // Re-enable button
+            if (placeOrderBtn) {
+                placeOrderBtn.disabled = false;
+                placeOrderBtn.textContent = 'Confirmar Pedido';
+            }
+        }
     }
 
     validateEmail(email) {
