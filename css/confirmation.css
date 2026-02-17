@@ -1,0 +1,261 @@
+/* ========== Order Confirmation Page Styles ========== */
+
+.confirmation-page {
+    background: var(--off-white);
+    min-height: calc(100vh - 80px);
+    padding: 3rem 0 4rem;
+}
+
+.confirmation-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Success Header */
+.confirmation-header {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.success-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background: rgba(168, 85, 102, 0.1);
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+}
+
+.success-icon svg {
+    color: var(--blush-deep);
+}
+
+.confirmation-header h1 {
+    font-size: 2rem;
+    font-weight: 500;
+    margin: 0 0 1rem;
+    letter-spacing: -0.02em;
+}
+
+.order-number {
+    font-size: 1rem;
+    color: var(--mid-gray);
+    margin: 0;
+}
+
+.order-number strong {
+    color: var(--near-black);
+    font-weight: 600;
+}
+
+/* Payment Instructions */
+.payment-instructions {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.payment-instructions h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0 0 1.5rem;
+    text-align: center;
+}
+
+.payment-qr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background: var(--off-white);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.payment-qr img {
+    width: 200px;
+    height: 200px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.payment-number {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--blush-deep);
+    margin: 0;
+}
+
+.payment-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+    counter-reset: step-counter;
+}
+
+.payment-steps li {
+    position: relative;
+    padding-left: 3rem;
+    margin-bottom: 1.5rem;
+    counter-increment: step-counter;
+}
+
+.payment-steps li::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 32px;
+    height: 32px;
+    background: var(--blush-deep);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.payment-amount {
+    display: inline-block;
+    background: var(--blush-pale);
+    color: var(--blush-deep);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+}
+
+.bank-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.bank-option {
+    padding: 1.5rem;
+    background: var(--off-white);
+    border-radius: 8px;
+}
+
+.bank-option h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 1rem;
+    color: var(--blush-deep);
+}
+
+.bank-option p {
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+}
+
+.bank-option strong {
+    font-weight: 600;
+    color: var(--near-black);
+}
+
+.whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: #25D366;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    width: 100%;
+}
+
+.whatsapp-btn:hover {
+    background: #20BA5A;
+}
+
+.whatsapp-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Confirmation Summary */
+.confirmation-summary {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.confirmation-summary h2 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin: 0 0 1.5rem;
+}
+
+.summary-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--off-white);
+}
+
+.summary-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.summary-section h3 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--mid-gray);
+    margin: 0 0 1rem;
+}
+
+.summary-section p {
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+}
+
+/* Confirmation Actions */
+.confirmation-actions {
+    text-align: center;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 480px) {
+    .confirmation-page {
+        padding: 1.5rem 0 2rem;
+    }
+
+    .confirmation-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .payment-instructions,
+    .confirmation-summary {
+        padding: 1.5rem;
+    }
+
+    .payment-qr img {
+        width: 160px;
+        height: 160px;
+    }
+}

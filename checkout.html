@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout — VALÚ Baby</title>
+    <meta name="description" content="Finaliza tu compra en VALÚ Baby con pago seguro">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/checkout.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+</head>
+
+<body>
+
+    <!-- ========== Navigation ========== -->
+    <nav class="nav nav--minimal" id="navbar">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__brand">
+                VALÚ
+                <span>Baby</span>
+            </a>
+            <div class="checkout-steps">
+                <span class="step active">1. Carrito</span>
+                <span class="step active">2. Información</span>
+                <span class="step">3. Confirmación</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== Checkout Main ========== -->
+    <main class="checkout-page">
+        <div class="checkout-container">
+
+            <!-- Left Column: Form -->
+            <div class="checkout-form">
+
+                <!-- Contact Information -->
+                <section class="checkout-section">
+                    <h2 class="checkout-section__title">Información de Contacto</h2>
+
+                    <div class="form-group">
+                        <label for="customerName">Nombre Completo *</label>
+                        <input type="text" id="customerName" name="customerName" required
+                            placeholder="María García Pérez">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="customerEmail">Email *</label>
+                            <input type="email" id="customerEmail" name="customerEmail" required
+                                placeholder="maria@gmail.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="customerPhone">Teléfono/WhatsApp *</label>
+                            <input type="tel" id="customerPhone" name="customerPhone" required
+                                placeholder="+51 999 999 999">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerDNI">DNI (opcional)</label>
+                        <input type="text" id="customerDNI" name="customerDNI" maxlength="8" placeholder="12345678">
+                    </div>
+                </section>
+
+                <!-- Shipping Address -->
+                <section class="checkout-section">
+                    <h2 class="checkout-section__title">Dirección de Envío</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="departamento">Departamento *</label>
+                            <select id="departamento" name="departamento" required>
+                                <option value="">Selecciona...</option>
+                                <option value="Lima">Lima</option>
+                                <option value="Arequipa">Arequipa</option>
+                                <option value="Cusco">Cusco</option>
+                                <option value="La Libertad">La Libertad</option>
+                                <option value="Piura">Piura</option>
+                                <option value="Callao">Callao</option>
+                                <option value="Junín">Junín</option>
+                                <option value="Lambayeque">Lambayeque</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="provincia">Provincia *</label>
+                            <input type="text" id="provincia" name="provincia" required placeholder="Lima">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="distrito">Distrito *</label>
+                        <select id="distrito" name="distrito" required>
+                            <option value="">Selecciona tu distrito...</option>
+                            <optgroup label="Lima Centro">
+                                <option value="Miraflores">Miraflores</option>
+                                <option value="San Isidro">San Isidro</option>
+                                <option value="Barranco">Barranco</option>
+                                <option value="Jesús María">Jesús María</option>
+                                <option value="Magdalena">Magdalena del Mar</option>
+                                <option value="Pueblo Libre">Pueblo Libre</option>
+                                <option value="San Miguel">San Miguel</option>
+                            </optgroup>
+                            <optgroup label="Lima Moderna">
+                                <option value="Surco">Santiago de Surco</option>
+                                <option value="San Borja">San Borja</option>
+                                <option value="La Molina">La Molina</option>
+                                <option value="Surquillo">Surquillo</option>
+                            </optgroup>
+                            <optgroup label="Lima Norte">
+                                <option value="Los Olivos">Los Olivos</option>
+                                <option value="San Martín de Porres">San Martín de Porres</option>
+                                <option value="Independencia">Independencia</option>
+                                <option value="Comas">Comas</option>
+                            </optgroup>
+                            <optgroup label="Lima Este">
+                                <option value="Ate">Ate</option>
+                                <option value="Santa Anita">Santa Anita</option>
+                                <option value="La Victoria">La Victoria</option>
+                            </optgroup>
+                            <optgroup label="Lima Sur">
+                                <option value="Chorrillos">Chorrillos</option>
+                                <option value="Villa El Salvador">Villa El Salvador</option>
+                                <option value="San Juan de Miraflores">San Juan de Miraflores</option>
+                            </optgroup>
+                            <option value="Otro">Otro distrito</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="direccion">Dirección (Calle, número, depto) *</label>
+                        <input type="text" id="direccion" name="direccion" required
+                            placeholder="Av. Larco 1234, Depto 501">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="referencia">Referencia (crucero, punto de referencia)</label>
+                        <input type="text" id="referencia" name="referencia"
+                            placeholder="Frente al parque Kennedy, edificio azul">
+                    </div>
+                </section>
+
+                <!-- Shipping Method -->
+                <section class="checkout-section">
+                    <h2 class="checkout-section__title">Método de Envío</h2>
+
+                    <div class="shipping-options">
+                        <label class="shipping-option">
+                            <input type="radio" name="shipping" value="express" data-price="15">
+                            <div class="shipping-option__content">
+                                <div class="shipping-option__info">
+                                    <strong>Envío Express (Lima)</strong>
+                                    <span>24-48 horas</span>
+                                </div>
+                                <span class="shipping-option__price">S/ 15.00</span>
+                            </div>
+                        </label>
+
+                        <label class="shipping-option">
+                            <input type="radio" name="shipping" value="regular" data-price="10" checked>
+                            <div class="shipping-option__content">
+                                <div class="shipping-option__info">
+                                    <strong>Envío Regular (Lima)</strong>
+                                    <span>3-5 días hábiles</span>
+                                </div>
+                                <span class="shipping-option__price">S/ 10.00</span>
+                            </div>
+                        </label>
+
+                        <label class="shipping-option">
+                            <input type="radio" name="shipping" value="provinces" data-price="25">
+                            <div class="shipping-option__content">
+                                <div class="shipping-option__info">
+                                    <strong>Envío a Provincias</strong>
+                                    <span>5-7 días hábiles</span>
+                                </div>
+                                <span class="shipping-option__price">S/ 25.00</span>
+                            </div>
+                        </label>
+
+                        <label class="shipping-option">
+                            <input type="radio" name="shipping" value="pickup" data-price="0">
+                            <div class="shipping-option__content">
+                                <div class="shipping-option__info">
+                                    <strong>Recojo en Tienda</strong>
+                                    <span>Disponible en 24h</span>
+                                </div>
+                                <span class="shipping-option__price">GRATIS</span>
+                            </div>
+                        </label>
+                    </div>
+                </section>
+
+                <!-- Payment Method -->
+                <section class="checkout-section">
+                    <h2 class="checkout-section__title">Método de Pago</h2>
+
+                    <div class="payment-methods">
+                        <label class="payment-method">
+                            <input type="radio" name="payment" value="yape" checked>
+                            <div class="payment-method__content">
+                                <img src="https://seeklogo.com/images/Y/yape-logo-1989C3C1AE-seeklogo.com.png"
+                                    alt="Yape" class="payment-logo">
+                                <span>Yape</span>
+                            </div>
+                        </label>
+
+                        <label class="payment-method">
+                            <input type="radio" name="payment" value="plin">
+                            <div class="payment-method__content">
+                                <img src="https://seeklogo.com/images/P/plin-logo-96D90BC3E2-seeklogo.com.png"
+                                    alt="Plin" class="payment-logo">
+                                <span>Plin</span>
+                            </div>
+                        </label>
+
+                        <label class="payment-method">
+                            <input type="radio" name="payment" value="transfer">
+                            <div class="payment-method__content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                                    <line x1="2" y1="10" x2="22" y2="10"></line>
+                                </svg>
+                                <span>Transferencia Bancaria</span>
+                            </div>
+                        </label>
+
+                        <label class="payment-method">
+                            <input type="radio" name="payment" value="cod">
+                            <div class="payment-method__content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                </svg>
+                                <span>Contraentrega</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <p class="payment-note">
+                        🔒 Pago 100% seguro. Recibirás instrucciones después de confirmar tu pedido.
+                    </p>
+                </section>
+
+                <button class="btn btn--primary btn--full btn--large" id="placeOrderBtn">
+                    Confirmar Pedido
+                </button>
+
+            </div>
+
+            <!-- Right Column: Order Summary -->
+            <div class="order-summary">
+                <h2 class="order-summary__title">Resumen del Pedido</h2>
+
+                <div class="order-items" id="orderItems">
+                    <!-- Dynamic items from cart -->
+                </div>
+
+                <div class="order-totals">
+                    <div class="order-total-row">
+                        <span>Subtotal:</span>
+                        <span id="orderSubtotal">S/ 0.00</span>
+                    </div>
+                    <div class="order-total-row">
+                        <span>Envío:</span>
+                        <span id="orderShipping">S/ 10.00</span>
+                    </div>
+                    <div class="order-total-row order-total-row--final">
+                        <strong>Total:</strong>
+                        <strong id="orderTotal">S/ 10.00</strong>
+                    </div>
+                </div>
+
+                <div class="order-security">
+                    <p>✓ Pago 100% seguro</p>
+                    <p>✓ Envío asegurado</p>
+                    <p>✓ Cambios gratis (7 días)</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="js/cart.js"></script>
+    <script src="js/checkout.js"></script>
+
+</body>
+
+</html>
