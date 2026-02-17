@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  price       Decimal  @db.Decimal(10, 2)
+  images      String[] // Array of image URLs
+  category    String
+  sizes       String[] // ["0-3M", "3-6M", "6-12M", "12-18M", "18-24M"]
+  stock       Int      @default(0)
+  badge       String?  // "Limited", "Best Seller", "Organic", etc.
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  orderItems  OrderItem[]
+
+  @@index([category])
+}
+
+model Order {
+  id              String        @id @default(uuid())
+  orderNumber     String        @unique
+  customerName    String
+  customerEmail   String
+  customerPhone   String
+  customerDNI     String?
+  shippingAddress Json          // { street, district, city, reference, zipCode }
+  subtotal        Decimal       @db.Decimal(10, 2)
+  shipping        Decimal       @db.Decimal(10, 2)
+  total           Decimal       @db.Decimal(10, 2)
+  status          OrderStatus   @default(PENDING)
+  paymentMethod   String        // "YAPE", "PLIN", "CARD", "MERCADO_PAGO"
+  paymentStatus   PaymentStatus @default(PENDING)
+  paymentId       String?       // External payment gateway ID
+  notes           String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  items           OrderItem[]
+
+  @@index([orderNumber])
+  @@index([customerEmail])
+  @@index([status])
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String
+  productId String
+  quantity  Int
+  size      String
+  price     Decimal @db.Decimal(10, 2) // Price at time of purchase
+
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+enum OrderStatus {
+  PENDING     // Waiting for payment
+  CONFIRMED   // Payment confirmed
+  PROCESSING  // Being prepared
+  SHIPPED     // In transit
+  DELIVERED   // Completed
+  CANCELLED   // Cancelled by admin or customer
+}
+
+enum PaymentStatus {
+  PENDING   // Awaiting payment
+  PAID      // Payment successful
+  FAILED    // Payment failed
+  REFUNDED  // Money refunded
+}
