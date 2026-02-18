@@ -1,4 +1,5 @@
 const prisma = require('../config/database');
+const emailService = require('../services/emailService');
 
 // Generate unique order number
 const generateOrderNumber = () => {
@@ -64,9 +65,11 @@ exports.createOrder = async (req, res, next) => {
             }
         });
 
-        // TODO: Decrease product stock
-        // TODO: Send confirmation email
-        // TODO: Send WhatsApp notification
+        // Send Async Emails (don't block response)
+        emailService.sendOrderConfirmation(order).catch(err => console.error(err));
+        emailService.sendAdminNotification(order).catch(err => console.error(err));
+
+        // TODO: Send WhatsApp notification (Phase 5)
 
         res.status(201).json({
             success: true,

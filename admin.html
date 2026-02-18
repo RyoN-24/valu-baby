@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — VALÚ Baby</title>
+    <link rel="stylesheet" href="css/styles.css"> <!-- Base styles -->
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+</head>
+<body>
+
+    <!-- LOGIN SCREEN -->
+    <div id="loginScreen" class="admin-login-container">
+        <div class="admin-login-box">
+            <div class="admin-login-header">
+                <h2>VALÚ Baby</h2>
+                <p>Admin Access</p>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="password" id="adminPassword" placeholder="Enter Admin Password" required>
+                </div>
+                <button type="submit" class="btn btn--primary btn--full">Login</button>
+                <div id="loginError" class="error-msg"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- DASHBOARD SCREEN -->
+    <div id="dashboardScreen" class="dashboard-container hidden">
+        
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-brand">
+                VALÚ <span>Admin</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="active" data-view="orders">📦 Pedidos</a>
+                <a href="#" data-view="products">👗 Productos</a>
+                <a href="#" data-view="settings">⚙️ Configuración</a>
+                <div class="sidebar-spacer"></div>
+                <a href="#" id="logoutBtn">🚪 Cerrar Sesión</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            
+            <!-- Header -->
+            <header class="dashboard-header">
+                <h1 id="pageTitle">Pedidos</h1>
+                <div class="dashboard-actions">
+                    <button id="refreshBtn" class="btn btn--small btn--outline">🔄 Actualizar</button>
+                </div>
+            </header>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Pendientes</h3>
+                    <div class="stat-value" id="countPending">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Confirmados</h3>
+                    <div class="stat-value" id="countConfirmed">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Ventas</h3>
+                    <div class="stat-value" id="totalSales">S/ 0.00</div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="table-filters">
+                <button class="filter-btn active" data-status="ALL">Todos</button>
+                <button class="filter-btn" data-status="PENDING">Pendientes</button>
+                <button class="filter-btn" data-status="CONFIRMED">Confirmados</button>
+                <button class="filter-btn" data-status="SHIPPED">Enviados</button>
+            </div>
+
+            <!-- Orders Table -->
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Orden #</th>
+                            <th>Cliente</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                            <th>Total</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        <!-- Dynamic content -->
+                    </tbody>
+                </table>
+                <div id="loadingState" class="hidden">Cargando datos...</div>
+                <div id="emptyState" class="hidden">No se encontraron pedidos.</div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- ORDER DETAIL MODAL -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content modal-large">
+            <span class="close-modal">&times;</span>
+            <div id="orderDetailContent">
+                <!-- Dynamic detail content -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

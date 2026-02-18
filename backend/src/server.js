@@ -19,8 +19,19 @@ const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(helmet()); // Security headers
+
+const allowedOrigins = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+    'http://localhost:5500',
+    'http://127.0.0.1:5500',
+    'https://valu-baby.vercel.app'
+];
+
 app.use(cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+    origin: process.env.NODE_ENV === 'production'
+        ? allowedOrigins
+        : true,
     credentials: true
 }));
 app.use(express.json());
@@ -43,6 +54,7 @@ app.get('/health', (req, res) => {
 app.use('/api/products', productsRouter);
 app.use('/api/orders', ordersRouter);
 app.use('/api/cart', cartRouter);
+app.use('/api/admin', require('./routes/admin'));
 
 // 404 handler
 app.use((req, res) => {

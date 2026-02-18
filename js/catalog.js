@@ -48,7 +48,7 @@ class CatalogPage {
 
         } catch (error) {
             console.error('Error loading products:', error);
-            this.showError();
+            this.showError(error.message);
         }
     }
 
@@ -139,13 +139,19 @@ class CatalogPage {
         });
     }
 
-    showError() {
+    showError(message) {
         const loadingState = document.getElementById('loadingState');
         const errorState = document.getElementById('errorState');
         const productsGrid = document.getElementById('productsGrid');
 
         if (loadingState) loadingState.style.display = 'none';
-        if (errorState) errorState.style.display = 'flex';
+        if (errorState) {
+            errorState.style.display = 'flex';
+            if (message) {
+                const msgEl = errorState.querySelector('.error-message');
+                if (msgEl) msgEl.innerHTML += `<br><small>${message}</small>`;
+            }
+        }
         if (productsGrid) productsGrid.style.display = 'none';
     }
 }

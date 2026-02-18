@@ -4,91 +4,81 @@
    ============================================ */
 
 class OrderConfirmation {
-    constructor() {
-        this.whatsappNumber = '51999999999'; // Update with real number
-        this.init();
+  constructor() {
+    this.whatsappNumber = '51901440221';
+    this.init();
+  }
+
+  init() {
+    // Get payment method from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentMethod = urlParams.get('payment') || 'yape';
+
+    // Get order from localStorage
+    const orderData = JSON.parse(localStorage.getItem('pending_order') || '{}');
+
+    if (!orderData.customerName) {
+      // No pending order, redirect to home
+      window.location.href = 'index.html';
+      return;
     }
 
-    init() {
-        // Get payment method from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const paymentMethod = urlParams.get('payment') || 'yape';
+    // Use the real order number from backend
+    const orderNumber = orderData.orderNumber || 'N/A';
+    document.getElementById('orderNumber').textContent = orderNumber;
 
-        // Get order from localStorage
-        const orderData = JSON.parse(localStorage.getItem('pending_order') || '{}');
+    // Build full order object for display
+    const fullOrder = {
+      ...orderData,
+      orderNumber,
+      orderDate: orderData.orderDate || new Date().toISOString(),
+      status: orderData.status || 'PENDING'
+    };
 
-        if (!orderData.customerName) {
-            // No pending order, redirect to home
-            window.location.href = 'index.html';
-            return;
-        }
+    // Clear pending order from localStorage (order is already saved in backend DB)
+    localStorage.removeItem('pending_order');
 
-        // Generate order number
-        const orderNumber = this.generateOrderNumber();
-        document.getElementById('orderNumber').textContent = orderNumber;
+    // Render payment instructions
+    this.renderPaymentInstructions(paymentMethod, fullOrder);
 
-        // Save full order with order number
-        const fullOrder = {
-            ...orderData,
-            orderNumber,
-            orderDate: new Date().toISOString(),
-            status: 'PENDING'
-        };
+    // Render order summary
+    this.renderOrderSummary(fullOrder);
+  }
 
-        // Save to localStorage (in real app, send to backend)
-        localStorage.setItem(`order_${orderNumber}`, JSON.stringify(fullOrder));
 
-        // Clear cart and pending order
-        if (window.cart) {
-            window.cart.clear();
-        }
-        localStorage.removeItem('pending_order');
 
-        // Render payment instructions
-        this.renderPaymentInstructions(paymentMethod, fullOrder);
+  renderPaymentInstructions(method, order) {
+    const container = document.getElementById('paymentInstructions');
+    const total = order.total.toFixed(2);
 
-        // Render order summary
-        this.renderOrderSummary(fullOrder);
-    }
+    const instructions = {
+      yape: this.getYapeInstructions(total),
+      plin: this.getPlinInstructions(total),
+      transfer: this.getTransferInstructions(total),
+      cod: this.getCODInstructions(total)
+    };
 
-    generateOrderNumber() {
-        const timestamp = Date.now().toString().slice(-6);
-        const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-        return `VB-${timestamp}-${random}`;
-    }
+    container.innerHTML = instructions[method] || instructions.yape;
+  }
 
-    renderPaymentInstructions(method, order) {
-        const container = document.getElementById('paymentInstructions');
-        const total = order.total.toFixed(2);
+  getYapeInstructions(total) {
+    const whatsappMsg = encodeURIComponent(
+      `Hola! He realizado mi pedido en VALÚ Baby.\n` +
+      `Adjunto comprobante de pago por Yape.\n` +
+      `Monto: S/ ${total}`
+    );
 
-        const instructions = {
-            yape: this.getYapeInstructions(total),
-            plin: this.getPlinInstructions(total),
-            transfer: this.getTransferInstructions(total),
-            cod: this.getCODInstructions(total)
-        };
-
-        container.innerHTML = instructions[method] || instructions.yape;
-    }
-
-    getYapeInstructions(total) {
-        const whatsappMsg = encodeURIComponent(
-            `Hola! He realizado mi pedido en VALÚ Baby.\n` +
-            `Adjunto comprobante de pago por Yape.\n` +
-            `Monto: S/ ${total}`
-        );
-
-        return `
+    return `
       <h2>Paga con Yape</h2>
       
       <div class="payment-qr">
         <p style="font-size: 1.1rem; margin-bottom: 1rem;">Escanea el código QR o envía a:</p>
-        <div class="payment-number">999 999 999</div>
+        <div class="payment-number">901 440 221</div>
       </div>
 
       <ol class="payment-steps">
         <li>
-          <strong>Escanea el QR</strong> o envía a <strong>999 999 999</strong>
+          <strong>Escanea el QR</strong> o envía a <strong>901 440 221</strong>
         </li>
         <li>
           Monto exacto: <span class="payment-amount">S/ ${total}</span>
@@ -109,21 +99,21 @@ class OrderConfirmation {
         Enviar Comprobante por WhatsApp
       </a>
     `;
-    }
+  }
 
-    getPlinInstructions(total) {
-        const whatsappMsg = encodeURIComponent(
-            `Hola! He realizado mi pedido en VALÚ Baby.\n` +
-            `Adjunto comprobante de pago por Plin.\n` +
-            `Monto: S/ ${total}`
-        );
+  getPlinInstructions(total) {
+    const whatsappMsg = encodeURIComponent(
+      `Hola! He realizado mi pedido en VALÚ Baby.\n` +
+      `Adjunto comprobante de pago por Plin.\n` +
+      `Monto: S/ ${total}`
+    );
 
-        return `
+    return `
       <h2>Paga con Plin</h2>
       
       <div class="payment-qr">
         <p style="font-size: 1.1rem; margin-bottom: 1rem;">Escanea el código QR o envía a:</p>
-        <div class="payment-number">999 999 999</div>
+        <div class="payment-number">901 440 221</div>
       </div>
 
       <ol class="payment-steps">
@@ -134,7 +124,7 @@ class OrderConfirmation {
           Monto exacto: <span class="payment-amount">S/ ${total}</span>
         </li>
         <li>
-          <strong>Escanea el QR</strong> o ingresa el número <strong>999 999 999</strong>
+          <strong>Escanea el QR</strong> o ingresa el número <strong>901 440 221</strong>
         </li>
         <li>
           <strong>Envíanos tu comprobante</strong> por WhatsApp
@@ -149,41 +139,23 @@ class OrderConfirmation {
         Enviar Comprobante por WhatsApp
       </a>
     `;
-    }
+  }
 
-    getTransferInstructions(total) {
-        const whatsappMsg = encodeURIComponent(
-            `Hola! He realizado mi pedido en VALÚ Baby.\n` +
-            `Adjunto voucher de transferencia bancaria.\n` +
-            `Monto: S/ ${total}`
-        );
+  getTransferInstructions(total) {
+    const whatsappMsg = encodeURIComponent(
+      `Hola! He realizado mi pedido en VALÚ Baby.\n` +
+      `Adjunto voucher de transferencia bancaria.\n` +
+      `Monto: S/ ${total}`
+    );
 
-        return `
+    return `
       <h2>Transferencia Bancaria</h2>
       
       <div class="bank-details">
         <div class="bank-option">
-          <h3>🏦 BCP</h3>
-          <p>Cuenta Corriente Soles:</p>
-          <p><strong>191-123456789-0-12</strong></p>
-          <p>CCI:</p>
-          <p><strong>002-191-123456789012-34</strong></p>
-        </div>
-
-        <div class="bank-option">
-          <h3>🏦 Interbank</h3>
-          <p>Cuenta de Ahorros Soles:</p>
-          <p><strong>898-987654321-0-98</strong></p>
-          <p>CCI:</p>
-          <p><strong>003-898-987654321098-76</strong></p>
-        </div>
-
-        <div class="bank-option">
           <h3>🏦 BBVA</h3>
-          <p>Cuenta Corriente Soles:</p>
-          <p><strong>0011-0456-7890123456</strong></p>
-          <p>CCI:</p>
-          <p><strong>011-456-000123456789-00</strong></p>
+          <p>Cuenta Soles:</p>
+          <p><strong>0011-0253-0200-4420-47</strong></p>
         </div>
       </div>
 
@@ -210,10 +182,10 @@ class OrderConfirmation {
         Enviar Voucher por WhatsApp
       </a>
     `;
-    }
+  }
 
-    getCODInstructions(total) {
-        return `
+  getCODInstructions(total) {
+    return `
       <h2>Pago Contraentrega 💵</h2>
       
       <div style="text-align: center; padding: 2rem; background: var(--blush-pale); border-radius: 8px; margin-bottom: 2rem;">
@@ -242,12 +214,12 @@ class OrderConfirmation {
         📱 Nos comunicaremos contigo pronto
       </p>
     `;
-    }
+  }
 
-    renderOrderSummary(order) {
-        const container = document.getElementById('orderSummaryDetails');
+  renderOrderSummary(order) {
+    const container = document.getElementById('orderSummaryDetails');
 
-        container.innerHTML = `
+    container.innerHTML = `
       <div class="summary-section">
         <h3>Información de Contacto</h3>
         <p><strong>${order.customerName}</strong></p>
@@ -278,10 +250,10 @@ class OrderConfirmation {
         </p>
       </div>
     `;
-    }
+  }
 }
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    new OrderConfirmation();
+  new OrderConfirmation();
 });

@@ -1,56 +1,290 @@
-# VALÚ Baby
+# VALÚ Baby - E-commerce Platform 🌸
 
-Premium baby clothing brand website — curated collection for girls 0-24 months.
+**Modern baby clothing e-commerce for the Peruvian market**
 
-## 🌸 Overview
-
-VALÚ Baby is a minimalist, editorial-style website showcasing a limited collection of delicate baby clothing pieces.
-
-## 🎨 Features
-
-- **Visual Identity**: Blush pink palette, elegant serif + sans-serif typography
-- **Homepage**: Hero section, curated collection, brand narrative, waitlist
-- **Product Page**: Interactive gallery, size selector, accordion details
-- **Brand Story**: About page with values and philosophy
-- **Fully Responsive**: Mobile-first design
-- **Interactive**: Smooth animations, scroll effects, micro-interactions
-
-## 🚀 Tech Stack
-
-- Pure HTML5
-- Vanilla CSS3 (no frameworks)
-- Vanilla JavaScript (no dependencies)
-- Google Fonts: Cormorant Garamond + Jost
-
-## 📂 Structure
-
-```
-valu-baby/
-├── index.html          # Homepage
-├── product.html        # Product page
-├── about.html          # Brand story
-├── css/
-│   └── styles.css      # Complete design system
-├── js/
-│   └── main.js         # All interactions
-└── images/             # Product images
-```
-
-## 🎯 Design Principles
-
-- **Minimalist**: Clean, spacious layouts with intentional whitespace
-- **Editorial**: Magazine-quality typography and imagery
-- **Premium**: Sophisticated color palette and micro-animations
-- **Delicate**: Soft tones, gentle transitions, elegant details
-
-## 💻 Local Development
-
-Simply open `index.html` in your browser. No build process required.
-
-## 🌐 Live Demo
-
-Coming soon on Vercel.
+Phase 3 complete: Full-stack shopping cart & checkout with Peru payment methods
 
 ---
 
-Made with care 🌸
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js (v16+)
+- PostgreSQL database (Neon Cloud configured)
+- npm or yarn
+
+### 1. Backend Setup
+
+```bash
+cd backend
+npm install
+```
+
+Create `.env` file in `/backend`:
+
+```
+DATABASE_URL="your_neon_connection_string"
+PORT=3001
+NODE_ENV=development
+FRONTEND_URL=http://localhost:5500
+```
+
+Run migrations and seed:
+
+```bash
+npx prisma migrate deploy
+npm run seed
+```
+
+Start backend:
+
+```bash
+npm run dev
+```
+
+Backend runs on: **<http://localhost:3001>**
+
+### 2. Frontend Setup
+
+Simply open `index.html` or `catalog.html` with Live Server (VSCode) or any local server.
+
+Recommended: Use Live Server extension (port 5500)
+
+---
+
+## 📁 Project Structure
+
+```
+valu-baby/
+├── backend/
+│   ├── src/
+│   │   ├── server.js          # Express server
+│   │   └── routes/            # API endpoints
+│   ├── prisma/
+│   │   ├── schema.prisma      # Database schema
+│   │   └── seed.js            # 20 products seed
+│   └── package.json
+├── css/
+│   ├── styles.css            # Main styles
+│   ├── cart.css              # Shopping cart
+│   ├── quick-add.css         # Quick add modal
+│   ├── checkout.css          # Checkout page
+│   ├── confirmation.css      # Order confirmation
+│   └── catalog.css           # Catalog page
+├── js/
+│   ├── api.js                # API service layer ⭐ NEW
+│   ├── cart.js               # Cart logic
+│   ├── quick-add.js          # Quick add
+│   ├── checkout.js           # Checkout (integrates API)
+│   ├── catalog.js            # Catalog page ⭐ NEW
+│   └── order-confirmation.js # Confirmation page
+├── index.html                # Homepage
+├── catalog.html             # Products (from DB) ⭐ NEW
+├── checkout.html            # Checkout form
+└── order-confirmation.html  # Payment instructions
+```
+
+---
+
+## ✨ Features
+
+### Phase 1: Frontend Design ✅
+
+- Responsive homepage
+- Hero section with CTA
+- Product cards
+- FAQ accordion
+- Mobile navigation
+
+### Phase 2: Backend Setup ✅
+
+- Express + Prisma + PostgreSQL
+- RESTful API
+- 20 products seeded
+- Order management
+
+### Phase 3: Shopping Cart & Checkout ✅
+
+- **Shopping Cart**
+  - localStorage persistence
+  - Add/remove/update items
+  - Slide-in sidebar
+  - Badge counter
+  
+- **Quick Add**
+  - Size selection modal
+  - Auto-open cart
+
+- **Checkout (Peru-adapted)**
+  - Departamento/Distrito dropdowns
+  - DNI field
+  - 4 shipping options
+  - 4 payment methods:
+    - Yape (QR/número)
+    - Plin (QR/número)
+    - Transferencia (BCP, Interbank, BBVA)
+    - Contraentrega
+
+- **Order Confirmation**
+  - Payment-specific instructions
+  - WhatsApp integration
+  - Order summary
+
+- **API Integration** ⭐ NEW
+  - Products loaded from database
+  - Orders saved to database
+  - Category filtering
+  - Error handling
+
+---
+
+## 🎯 API Endpoints
+
+### Products
+
+- `GET /api/products` - Get all products
+- `GET /api/products?category=Vestidos` - Filter by category
+- `GET /api/products/:id` - Get single product
+
+### Cart
+
+- `POST /api/cart/validate` - Validate cart items
+
+### Orders
+
+- `POST /api/orders` - Create order
+- `GET /api/orders/:id` - Get order by ID
+- `GET /api/orders/number/:orderNumber` - Get by order number
+- `PUT /api/orders/:id/status` - Update status
+- `PUT /api/orders/:id/payment` - Update payment status
+
+---
+
+## 🛠️ Technologies
+
+**Frontend:**
+
+- HTML5, CSS3, Vanilla JavaScript
+- localStorage for cart persistence
+- Fetch API for backend communication
+
+**Backend:**
+
+- Node.js + Express
+- Prisma ORM
+- PostgreSQL (Neon Cloud)
+- CORS, Helmet (security)
+
+**Database:**
+
+- 20 products pre-seeded
+- Orders with items
+- Payment & shipping tracking
+
+---
+
+## 📦 Database Schema
+
+```prisma
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  price       Decimal
+  category    String
+  sizes       String[]
+  images      String[]
+  stock       Int
+  badge       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Order {
+  id              String        @id @default(uuid())
+  orderNumber     String        @unique
+  customerName    String
+  customerEmail   String
+  customerPhone   String
+  customerDNI     String?
+  shippingAddress Json
+  subtotal        Decimal
+  shipping        Decimal
+  total           Decimal
+  paymentMethod   String
+  status          OrderStatus   @default(PENDING)
+  paymentStatus   PaymentStatus @default(PENDING)
+  items           OrderItem[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+```
+
+---
+
+## 🧪 Testing
+
+### Backend
+
+```bash
+cd backend
+npm run dev
+```
+
+Visit <http://localhost:3001/health>
+
+### Frontend
+
+1. Start backend first
+2. Open `catalog.html` with Live Server
+3. Products should load from database
+4. Add items to cart
+5. Proceed to checkout
+6. Complete order (saved to database)
+
+---
+
+## 📝 Next Steps (Phase 4)
+
+- [ ] Admin dashboard
+- [ ] Email notifications (SendGrid)
+- [ ] WhatsApp API integration
+- [ ] Real payment gateway (Culqi/Niubiz)
+- [ ] Order tracking
+- [ ] User accounts
+
+---
+
+## 👨‍💻 Development
+
+**Start Backend:**
+
+```bash
+cd backend && npm run dev
+```
+
+**Start Frontend:**
+Open with Live Server or:
+
+```bash
+npx serve .
+```
+
+**Reset Database:**
+
+```bash
+cd backend
+npx prisma migrate reset
+npm run seed
+```
+
+---
+
+## 📄 License
+
+Private project - VALÚ Baby © 2024
+
+---
+
+**Built with ❤️ for Peruvian mamás and bebés**

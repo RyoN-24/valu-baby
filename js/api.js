@@ -1,9 +1,11 @@
 /* ============================================
    API Service - Frontend Backend Communication
-   Connects to Express API running on port 3001
+   Auto-detects local vs production environment
    ============================================ */
 
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://127.0.0.1:3001/api'
+    : 'https://valu-baby-backend.onrender.com/api';
 
 class APIService {
     constructor() {
@@ -99,7 +101,8 @@ class APIService {
 
     async healthCheck() {
         try {
-            const response = await fetch('http://localhost:3001/health');
+            const healthUrl = API_BASE_URL.replace('/api', '/health');
+            const response = await fetch(healthUrl);
             return response.ok;
         } catch (error) {
             return false;
