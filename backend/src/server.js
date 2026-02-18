@@ -18,20 +18,13 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Middleware
-app.use(helmet()); // Security headers
-
-const allowedOrigins = [
-    'http://localhost:5173',
-    'http://127.0.0.1:5173',
-    'http://localhost:5500',
-    'http://127.0.0.1:5500',
-    'https://valu-baby.vercel.app'
-];
+app.use(helmet({
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+    crossOriginOpenerPolicy: false
+}));
 
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production'
-        ? allowedOrigins
-        : true,
+    origin: true, // Allow all origins (auth is handled by tokens)
     credentials: true
 }));
 app.use(express.json());
