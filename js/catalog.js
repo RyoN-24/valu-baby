@@ -10,11 +10,29 @@ class CatalogPage {
     }
 
     async init() {
-        // Load products directly (error handling is in loadProducts)
-        await this.loadProducts();
+        // Load products with retry for Render cold starts
+        await this.loadProductsWithRetry();
 
         // Setup category filters
         this.setupFilters();
+    }
+
+    async loadProductsWithRetry(maxRetries = 3) {
+        for (let attempt = 1; attempt <= maxRetries; attempt++) {
+            try {
+                console.log(`Loading products (attempt ${attempt}/${maxRetries})...`);
+                await this.loadProducts();
+                return; // Success, exit
+            } catch (error) {
+                console.warn(`Attempt ${attempt} failed:`, error.message);
+                if (attempt < maxRetries) {
+                    // Wait before retrying (gives Render time to wake up)
+                    await new Promise(resolve => setTimeout(resolve, 5000));
+                }
+            }
+        }
+        // All retries failed
+        this.showError('No se pudo conectar con el servidor después de varios intentos.');
     }
 
     async loadProducts(category = null) {
@@ -40,7 +58,7 @@ class CatalogPage {
 
         } catch (error) {
             console.error('Error loading products:', error);
-            this.showError(error.message);
+            throw error; // Re-throw for retry logic
         }
     }
 
