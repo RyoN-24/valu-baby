@@ -10,15 +10,7 @@ class CatalogPage {
     }
 
     async init() {
-        // Check if backend is running
-        const isBackendUp = await window.api.healthCheck();
-
-        if (!isBackendUp) {
-            this.showError();
-            return;
-        }
-
-        // Load products
+        // Load products directly (error handling is in loadProducts)
         await this.loadProducts();
 
         // Setup category filters
