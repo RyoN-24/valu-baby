@@ -57,6 +57,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  overflow-x: hidden;
 }
 
 body {
@@ -1345,7 +1346,7 @@ p {
 
   .btn {
     padding: 0.9rem 2rem;
-    font-size: 0.7rem;
+    font-size: 0.85rem;
   }
 }
 

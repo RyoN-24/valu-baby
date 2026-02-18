@@ -8,6 +8,7 @@
     <meta name="description"
         content="Rosé Tulle Dress — Pieza limitada de la colección Blush. Confeccionada con los tejidos más delicados para sus primeros momentos.">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/cart.css">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
 </head>
@@ -23,10 +24,18 @@
             </a>
             <ul class="nav__links" id="navLinks">
                 <li><a href="index.html" class="nav__link">Home</a></li>
-                <li><a href="product.html" class="nav__link">Collection</a></li>
+                <li><a href="catalog.html" class="nav__link">Catálogo</a></li>
                 <li><a href="about.html" class="nav__link">Our Story</a></li>
-                <li><a href="index.html#waitlist" class="nav__link">Early Access</a></li>
+                <li><a href="faq.html" class="nav__link">FAQ</a></li>
             </ul>
+            <button class="cart-toggle" id="cartToggle" aria-label="Shopping Cart">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                <span class="cart-badge" id="cartBadge">0</span>
+            </button>
             <button class="nav__toggle" id="navToggle" aria-label="Menu">
                 <span></span>
                 <span></span>
@@ -179,14 +188,16 @@
                 <h4>Navigate</h4>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="product.html">Collection</a></li>
+                    <li><a href="catalog.html">Catálogo</a></li>
                     <li><a href="about.html">Our Story</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
                 </ul>
             </div>
             <div class="footer__col">
                 <h4>Connect</h4>
                 <ul>
                     <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a></li>
+                    <li><a href="https://wa.me/51901440221" target="_blank" rel="noopener">WhatsApp</a></li>
                     <li><a href="mailto:hello@valubaby.com">hello@valubaby.com</a></li>
                 </ul>
             </div>
@@ -205,7 +216,107 @@
         </div>
     </footer>
 
+    <!-- ========== Cart Sidebar ========== -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-sidebar__header">
+            <h2>Tu Carrito</h2>
+            <button class="cart-close" id="cartClose" aria-label="Cerrar carrito">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <div class="cart-sidebar__body">
+            <div id="emptyCart" class="cart-empty">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                <p>Tu carrito está vacío</p>
+                <a href="catalog.html" class="btn btn--primary">Ver Catálogo</a>
+            </div>
+
+            <div id="cartItems" class="cart-items">
+                <!-- Dynamic cart items -->
+            </div>
+        </div>
+
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Subtotal:</span>
+                <span id="cartSubtotal">S/ 0.00</span>
+            </div>
+            <button class="btn btn--primary btn--full" id="checkoutBtn">
+                Proceder al Pago
+            </button>
+            <p class="cart-shipping-note">Envío calculado en el checkout</p>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/51901440221?text=Hola%2C%20me%20interesa%20la%20colecci%C3%B3n%20VALÚ%20Baby"
+        class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.652a11.963 11.963 0 005.713 1.456h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                fill="currentColor" />
+        </svg>
+    </a>
+
+    <!-- Cart Notification -->
+    <div class="cart-notification" id="cartNotification"></div>
+
     <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script>
+        // ========== Add to Bag Handler ==========
+        document.addEventListener('DOMContentLoaded', () => {
+            const addBtn = document.getElementById('addToBag');
+            if (addBtn) {
+                addBtn.addEventListener('click', () => {
+                    const selectedSize = document.querySelector('.size-selector__btn.selected');
+                    if (!selectedSize) {
+                        alert('Por favor selecciona una talla');
+                        return;
+                    }
+
+                    const product = {
+                        id: 'rose-tulle-dress',
+                        name: 'Rosé Tulle Dress',
+                        price: 189.00,
+                        size: selectedSize.dataset.size,
+                        image: 'https://images.unsplash.com/photo-1519689373023-dd07c7988603?w=300&q=80',
+                        quantity: 1
+                    };
+
+                    if (window.cart) {
+                        window.cart.addItem(product);
+                    }
+                });
+            }
+
+            // Size selector handlers
+            const sizeButtons = document.querySelectorAll('.size-selector__btn');
+            sizeButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    sizeButtons.forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                });
+            });
+
+            // Trigger reveal animations
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach((el, i) => {
+                setTimeout(() => el.classList.add('visible'), i * 150);
+            });
+        });
+    </script>
 </body>
 
 </html>
