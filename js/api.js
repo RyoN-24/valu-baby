@@ -10,6 +10,7 @@ const API_BASE_URL = window.location.hostname === 'localhost' || window.location
 class APIService {
     constructor() {
         this.baseURL = API_BASE_URL;
+        this.cacheDuration = 60 * 60 * 1000; // 1 hour in ms
     }
 
     // Generic fetch wrapper with error handling
@@ -38,17 +39,77 @@ class APIService {
         }
     }
 
+    // ========== CACHE HELPERS ==========
+
+    getCached(key) {
+        try {
+            const item = localStorage.getItem(key);
+            if (!item) return null;
+
+            const { value, timestamp } = JSON.parse(item);
+            const isExpired = Date.now() - timestamp > this.cacheDuration;
+
+            if (isExpired) {
+                localStorage.removeItem(key);
+                return null;
+            }
+
+            return value;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    setCache(key, value) {
+        try {
+            localStorage.setItem(key, JSON.stringify({
+                value,
+                timestamp: Date.now()
+            }));
+        } catch (e) {
+            console.warn('LocalStorage full or disabled', e);
+        }
+    }
+
     // ========== PRODUCT ENDPOINTS ==========
 
     // Get all products (with optional category filter)
     async getProducts(category = null) {
+        const cacheKey = `products_${category || 'all'}`;
+        const cached = this.getCached(cacheKey);
+
+        if (cached) {
+            console.log('Serving products from cache');
+            return cached;
+        }
+
         const endpoint = category ? `/products?category=${category}` : '/products';
-        return this.request(endpoint);
+        const data = await this.request(endpoint);
+
+        if (data.success) {
+            this.setCache(cacheKey, data);
+        }
+
+        return data;
     }
 
     // Get single product by ID
     async getProduct(id) {
-        return this.request(`/products/${id}`);
+        const cacheKey = `product_${id}`;
+        const cached = this.getCached(cacheKey);
+
+        if (cached) {
+            console.log('Serving product from cache');
+            return cached;
+        }
+
+        const data = await this.request(`/products/${id}`);
+
+        if (data.success) {
+            this.setCache(cacheKey, data);
+        }
+
+        return data;
     }
 
     // ========== CART ENDPOINTS ==========
