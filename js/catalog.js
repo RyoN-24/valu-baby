@@ -113,6 +113,14 @@ class CatalogPage {
 
         // Setup quick add buttons
         this.setupQuickAddButtons();
+
+        // Trigger reveal animations for dynamically loaded products
+        const revealCards = productsGrid.querySelectorAll('.reveal');
+        revealCards.forEach((card, index) => {
+            setTimeout(() => {
+                card.classList.add('visible');
+            }, index * 100); // Staggered animation
+        });
     }
 
     setupQuickAddButtons() {
