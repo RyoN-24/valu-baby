@@ -4,13 +4,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rosé Tulle Dress — VALÚ Baby</title>
+    <title>Cargando... — VALÚ Baby</title>
     <meta name="description"
-        content="Rosé Tulle Dress — Pieza limitada de la colección Blush. Confeccionada con los tejidos más delicados para sus primeros momentos.">
+        content="Pieza exclusiva de la colección VALÚ Baby. Confeccionada con los tejidos más delicados para sus primeros momentos.">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/cart.css">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+    <style>
+        /* Product page specific styles */
+        .product-page {
+            padding: 2rem 0 4rem;
+            min-height: 60vh;
+        }
+
+        .product-page__inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .product-page__inner {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+            }
+        }
+
+        .product-gallery__main img {
+            width: 100%;
+            border-radius: 12px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+        }
+
+        .product-gallery__thumbs {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .product-gallery__thumb {
+            width: 72px;
+            height: 72px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.2s ease;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-gallery__thumb.active,
+        .product-gallery__thumb:hover {
+            border-color: var(--blush-deep);
+        }
+
+        .product-details__eyebrow {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--mid-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-details__name {
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-details__price {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--blush-deep);
+            margin-bottom: 1rem;
+        }
+
+        .product-details__stock {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: var(--blush-pale);
+            color: var(--blush-deep);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-details__description {
+            font-size: 0.95rem;
+            color: var(--dark);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            max-width: 100%;
+        }
+
+        .size-selector {
+            margin-bottom: 1.5rem;
+        }
+
+        .size-selector__label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .size-selector__options {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .size-selector__btn {
+            padding: 0.65rem 1.2rem;
+            border: 1px solid var(--light-gray);
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .size-selector__btn:hover {
+            border-color: var(--blush-deep);
+        }
+
+        .size-selector__btn.selected {
+            background: var(--near-black);
+            color: white;
+            border-color: var(--near-black);
+        }
+
+        .product-details__add-btn {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        /* Loading state */
+        .product-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 50vh;
+            gap: 1rem;
+            grid-column: 1 / -1;
+        }
+
+        .product-loading__spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--off-white);
+            border-top-color: var(--blush-deep);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .product-error {
+            text-align: center;
+            padding: 3rem;
+            grid-column: 1 / -1;
+        }
+
+        .product-error h2 {
+            margin-bottom: 1rem;
+        }
+
+        /* Product Info Accordion */
+        .product-info {
+            border-top: 1px solid var(--off-white);
+        }
+
+        .product-info__item {
+            border-bottom: 1px solid var(--off-white);
+        }
+
+        .product-info__header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--near-black);
+        }
+
+        .product-info__icon {
+            width: 12px;
+            height: 12px;
+            position: relative;
+        }
+
+        .product-info__icon::before,
+        .product-info__icon::after {
+            content: '';
+            position: absolute;
+            background: var(--near-black);
+            transition: transform 0.3s ease;
+        }
+
+        .product-info__icon::before {
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 1px;
+        }
+
+        .product-info__icon::after {
+            top: 0;
+            left: 50%;
+            width: 1px;
+            height: 100%;
+        }
+
+        .product-info__item.open .product-info__icon::after {
+            transform: rotate(90deg);
+        }
+
+        .product-info__body {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.4s ease;
+        }
+
+        .product-info__item.open .product-info__body {
+            max-height: 300px;
+        }
+
+        .product-info__body-inner {
+            padding-bottom: 1.25rem;
+        }
+
+        .product-info__body-inner p {
+            font-size: 0.9rem;
+            color: var(--dark);
+            line-height: 1.7;
+            margin-bottom: 0.5rem;
+            max-width: 100%;
+        }
+    </style>
 </head>
 
 <body>
@@ -46,129 +295,12 @@
 
     <!-- ========== Product Page ========== -->
     <section class="product-page">
-        <div class="product-page__inner">
-
-            <!-- Gallery -->
-            <div class="product-gallery reveal">
-                <div class="product-gallery__main" id="mainImage">
-                    <img src="https://images.unsplash.com/photo-1519689373023-dd07c7988603?w=1200&q=85"
-                        alt="Rosé Tulle Dress - Main View">
-                </div>
-                <div class="product-gallery__thumbs">
-                    <div class="product-gallery__thumb active" data-index="0"
-                        style="background-image: url('https://images.unsplash.com/photo-1519689373023-dd07c7988603?w=300&q=80'); background-size: cover; background-position: center;">
-                    </div>
-                    <div class="product-gallery__thumb" data-index="1"
-                        style="background-image: url('https://images.unsplash.com/photo-1519238400177-d740f7d28e61?w=300&q=80'); background-size: cover; background-position: center;">
-                    </div>
-                    <div class="product-gallery__thumb" data-index="2"
-                        style="background-image: url('https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=300&q=80'); background-size: cover; background-position: center;">
-                    </div>
-                    <div class="product-gallery__thumb" data-index="3"
-                        style="background-image: url('https://images.unsplash.com/photo-1522771930-78848d9293e8?w=300&q=80'); background-size: cover; background-position: center;">
-                    </div>
-                </div>
+        <div class="product-page__inner" id="productContainer">
+            <!-- Loading State -->
+            <div class="product-loading" id="productLoading">
+                <div class="product-loading__spinner"></div>
+                <p style="color: var(--mid-gray); font-size: 0.9rem;">Cargando producto...</p>
             </div>
-
-            <!-- Details -->
-            <div class="product-details reveal reveal-delay-1">
-                <p class="product-details__eyebrow">Collection 01 — Blush</p>
-                <h1 class="product-details__name">Rosé Tulle Dress</h1>
-                <p class="product-details__price">S/ 189.00</p>
-                <div class="product-details__stock">
-                    Limited Units Available
-                </div>
-
-                <!-- Size Selector -->
-                <div class="size-selector">
-                    <label class="size-selector__label">Select Size</label>
-                    <div class="size-selector__options">
-                        <button class="size-selector__btn" data-size="0-3M">0-3M</button>
-                        <button class="size-selector__btn" data-size="3-6M">3-6M</button>
-                        <button class="size-selector__btn selected" data-size="6-12M">6-12M</button>
-                        <button class="size-selector__btn" data-size="12-18M">12-18M</button>
-                        <button class="size-selector__btn" data-size="18-24M">18-24M</button>
-                    </div>
-                </div>
-
-                <!-- Add to Bag -->
-                <button class="btn btn--primary product-details__add-btn" id="addToBag">
-                    Add to Bag
-                </button>
-
-                <!-- Product Info Accordion -->
-                <div class="product-info">
-                    <div class="product-info__item open">
-                        <button class="product-info__header" aria-expanded="true">
-                            Description
-                            <span class="product-info__icon"></span>
-                        </button>
-                        <div class="product-info__body">
-                            <div class="product-info__body-inner">
-                                <p>Vestido de tul en tono rosé con delicados detalles de encaje en el cuello y los
-                                    puños. Una pieza pensada para momentos especiales — suave contra su piel, elegante
-                                    en cada fotografía. Diseñada para hacerla brillar en sus primeras memorias.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-info__item">
-                        <button class="product-info__header" aria-expanded="false">
-                            Fabric Details
-                            <span class="product-info__icon"></span>
-                        </button>
-                        <div class="product-info__body">
-                            <div class="product-info__body-inner">
-                                <p><strong>Composición:</strong> 70% Algodón orgánico, 30% Tul de nylon suave</p>
-                                <p><strong>Forro:</strong> 100% Algodón pima</p>
-                                <p><strong>Cuidado:</strong> Lavado a mano recomendado. No usar secadora.</p>
-                                <p><strong>Origen del tejido:</strong> Seleccionado de proveedores premium certificados.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-info__item">
-                        <button class="product-info__header" aria-expanded="false">
-                            Size Guide
-                            <span class="product-info__icon"></span>
-                        </button>
-                        <div class="product-info__body">
-                            <div class="product-info__body-inner">
-                                <p><strong>0-3M:</strong> Hasta 62 cm / 5.5 kg</p>
-                                <p><strong>3-6M:</strong> 62–68 cm / 5.5–8 kg</p>
-                                <p><strong>6-12M:</strong> 68–76 cm / 8–10 kg</p>
-                                <p><strong>12-18M:</strong> 76–83 cm / 10–12 kg</p>
-                                <p><strong>18-24M:</strong> 83–90 cm / 12–14 kg</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-info__item">
-                        <button class="product-info__header" aria-expanded="false">
-                            Exchange Policy
-                            <span class="product-info__icon"></span>
-                        </button>
-                        <div class="product-info__body">
-                            <div class="product-info__body-inner">
-                                <p>Aceptamos cambios dentro de los 7 días posteriores a la recepción del pedido. El
-                                    producto debe estar en su empaque original, sin uso y con etiquetas. No realizamos
-                                    devoluciones de dinero — solo cambios por otra talla o pieza de igual valor.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ========== Narrative Banner ========== -->
-    <section class="narrative section--lg">
-        <div class="narrative__inner reveal">
-            <p class="narrative__quote">
-                Made to be worn softly. Made to be remembered.
-            </p>
         </div>
     </section>
 
@@ -227,7 +359,6 @@
                 </svg>
             </button>
         </div>
-
         <div class="cart-sidebar__body">
             <div id="emptyCart" class="cart-empty">
                 <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -238,12 +369,8 @@
                 <p>Tu carrito está vacío</p>
                 <a href="catalog.html" class="btn btn--primary">Ver Catálogo</a>
             </div>
-
-            <div id="cartItems" class="cart-items">
-                <!-- Dynamic cart items -->
-            </div>
+            <div id="cartItems" class="cart-items"></div>
         </div>
-
         <div class="cart-footer">
             <div class="cart-total">
                 <span>Subtotal:</span>
@@ -255,8 +382,6 @@
             <p class="cart-shipping-note">Envío calculado en el checkout</p>
         </div>
     </div>
-
-    <!-- Cart Overlay -->
     <div class="cart-overlay" id="cartOverlay"></div>
 
     <!-- WhatsApp Floating Button -->
@@ -269,52 +394,271 @@
         </svg>
     </a>
 
-    <!-- Cart Notification -->
     <div class="cart-notification" id="cartNotification"></div>
 
     <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
     <script src="js/cart.js"></script>
     <script>
-        // ========== Add to Bag Handler ==========
-        document.addEventListener('DOMContentLoaded', () => {
-            const addBtn = document.getElementById('addToBag');
-            if (addBtn) {
-                addBtn.addEventListener('click', () => {
-                    const selectedSize = document.querySelector('.size-selector__btn.selected');
-                    if (!selectedSize) {
-                        alert('Por favor selecciona una talla');
+        /* ============================================
+           Dynamic Product Page
+           Loads product from API based on URL ?id=
+           ============================================ */
+
+        class ProductPage {
+            constructor() {
+                this.product = null;
+                this.selectedSize = null;
+                this.currentImageIndex = 0;
+                this.init();
+            }
+
+            async init() {
+                const params = new URLSearchParams(window.location.search);
+                const productId = params.get('id');
+
+                if (!productId) {
+                    this.showError('No se especificó un producto.');
+                    return;
+                }
+
+                await this.loadProductWithRetry(productId);
+            }
+
+            async loadProductWithRetry(productId, maxRetries = 3) {
+                for (let attempt = 1; attempt <= maxRetries; attempt++) {
+                    try {
+                        console.log(`Loading product (attempt ${attempt}/${maxRetries})...`);
+                        await this.loadProduct(productId);
                         return;
+                    } catch (error) {
+                        console.warn(`Attempt ${attempt} failed:`, error.message);
+                        if (attempt < maxRetries) {
+                            await new Promise(resolve => setTimeout(resolve, 5000));
+                        }
+                    }
+                }
+                this.showError('No se pudo cargar el producto. Por favor intenta de nuevo.');
+            }
+
+            async loadProduct(productId) {
+                const response = await window.api.getProduct(productId);
+
+                if (response.success && response.data) {
+                    this.product = response.data;
+                    this.renderProduct();
+                } else {
+                    throw new Error('Product not found');
+                }
+            }
+
+            renderProduct() {
+                const container = document.getElementById('productContainer');
+                const p = this.product;
+
+                // Update page title
+                document.title = `${p.name} — VALÚ Baby`;
+
+                // Update meta description
+                const metaDesc = document.querySelector('meta[name="description"]');
+                if (metaDesc && p.description) {
+                    metaDesc.content = p.description;
+                }
+
+                // Build images array (use all available images)
+                const images = p.images && p.images.length > 0
+                    ? p.images
+                    : ['https://images.unsplash.com/photo-1519689373023-dd07c7988603?w=800&q=85'];
+
+                // Build sizes array
+                const sizes = p.sizes && p.sizes.length > 0
+                    ? p.sizes
+                    : ['0-3M', '3-6M', '6-12M', '12-18M', '18-24M'];
+
+                container.innerHTML = `
+                    <!-- Gallery -->
+                    <div class="product-gallery reveal">
+                        <div class="product-gallery__main" id="mainImage">
+                            <img src="${images[0]}" alt="${p.name}">
+                        </div>
+                        ${images.length > 1 ? `
+                        <div class="product-gallery__thumbs">
+                            ${images.map((img, i) => `
+                                <div class="product-gallery__thumb ${i === 0 ? 'active' : ''}"
+                                     data-index="${i}"
+                                     style="background-image: url('${img}'); background-size: cover; background-position: center;">
+                                </div>
+                            `).join('')}
+                        </div>
+                        ` : ''}
+                    </div>
+
+                    <!-- Details -->
+                    <div class="product-details reveal reveal-delay-1">
+                        <p class="product-details__eyebrow">${p.category || 'VALÚ Baby'}</p>
+                        <h1 class="product-details__name">${p.name}</h1>
+                        <p class="product-details__price">S/ ${parseFloat(p.price).toFixed(2)}</p>
+                        ${p.stock !== undefined && p.stock <= 10
+                        ? `<div class="product-details__stock">${p.stock <= 0 ? 'Agotado' : `Solo quedan ${p.stock} unidades`}</div>`
+                        : '<div class="product-details__stock">Unidades Limitadas</div>'
                     }
 
-                    const product = {
-                        id: 'rose-tulle-dress',
-                        name: 'Rosé Tulle Dress',
-                        price: 189.00,
-                        size: selectedSize.dataset.size,
-                        image: 'https://images.unsplash.com/photo-1519689373023-dd07c7988603?w=300&q=80',
-                        quantity: 1
-                    };
+                        ${p.description ? `<p class="product-details__description">${p.description}</p>` : ''}
 
-                    if (window.cart) {
-                        window.cart.addItem(product);
-                    }
+                        <!-- Size Selector -->
+                        <div class="size-selector">
+                            <label class="size-selector__label">Selecciona tu talla</label>
+                            <div class="size-selector__options">
+                                ${sizes.map((size, i) => `
+                                    <button class="size-selector__btn ${i === 0 ? 'selected' : ''}" data-size="${size}">${size}</button>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <!-- Add to Bag -->
+                        <button class="btn btn--primary product-details__add-btn" id="addToBag" ${p.stock <= 0 ? 'disabled' : ''}>
+                            ${p.stock <= 0 ? 'Agotado' : 'Agregar al Carrito'}
+                        </button>
+
+                        <!-- Product Info Accordion -->
+                        <div class="product-info">
+                            <div class="product-info__item open">
+                                <button class="product-info__header" aria-expanded="true">
+                                    Descripción
+                                    <span class="product-info__icon"></span>
+                                </button>
+                                <div class="product-info__body">
+                                    <div class="product-info__body-inner">
+                                        <p>${p.description || 'Pieza cuidadosamente seleccionada de la colección VALÚ Baby. Diseñada para sus primeros momentos especiales.'}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="product-info__item">
+                                <button class="product-info__header" aria-expanded="false">
+                                    Guía de Tallas
+                                    <span class="product-info__icon"></span>
+                                </button>
+                                <div class="product-info__body">
+                                    <div class="product-info__body-inner">
+                                        <p><strong>0-3M:</strong> Hasta 62 cm / 5.5 kg</p>
+                                        <p><strong>3-6M:</strong> 62–68 cm / 5.5–8 kg</p>
+                                        <p><strong>6-12M:</strong> 68–76 cm / 8–10 kg</p>
+                                        <p><strong>12-18M:</strong> 76–83 cm / 10–12 kg</p>
+                                        <p><strong>18-24M:</strong> 83–90 cm / 12–14 kg</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="product-info__item">
+                                <button class="product-info__header" aria-expanded="false">
+                                    Política de Cambios
+                                    <span class="product-info__icon"></span>
+                                </button>
+                                <div class="product-info__body">
+                                    <div class="product-info__body-inner">
+                                        <p>Aceptamos cambios dentro de los 7 días posteriores a la recepción del pedido. El
+                                            producto debe estar en su empaque original, sin uso y con etiquetas. No realizamos
+                                            devoluciones de dinero — solo cambios por otra talla o pieza de igual valor.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Set initial selected size
+                this.selectedSize = sizes[0];
+
+                // Setup event listeners
+                this.setupEventListeners();
+
+                // Trigger reveal animations
+                const reveals = container.querySelectorAll('.reveal');
+                reveals.forEach((el, i) => {
+                    setTimeout(() => el.classList.add('visible'), i * 150);
                 });
             }
 
-            // Size selector handlers
-            const sizeButtons = document.querySelectorAll('.size-selector__btn');
-            sizeButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    sizeButtons.forEach(b => b.classList.remove('selected'));
-                    btn.classList.add('selected');
+            setupEventListeners() {
+                // Size selector
+                const sizeButtons = document.querySelectorAll('.size-selector__btn');
+                sizeButtons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        sizeButtons.forEach(b => b.classList.remove('selected'));
+                        btn.classList.add('selected');
+                        this.selectedSize = btn.dataset.size;
+                    });
                 });
-            });
 
-            // Trigger reveal animations
-            const reveals = document.querySelectorAll('.reveal');
-            reveals.forEach((el, i) => {
-                setTimeout(() => el.classList.add('visible'), i * 150);
-            });
+                // Add to Bag
+                const addBtn = document.getElementById('addToBag');
+                if (addBtn) {
+                    addBtn.addEventListener('click', () => {
+                        if (!this.selectedSize) {
+                            alert('Por favor selecciona una talla');
+                            return;
+                        }
+
+                        const p = this.product;
+                        const product = {
+                            id: p.id,
+                            name: p.name,
+                            price: parseFloat(p.price),
+                            size: this.selectedSize,
+                            image: p.images && p.images[0] ? p.images[0] : '',
+                            quantity: 1
+                        };
+
+                        if (window.cart) {
+                            window.cart.addItem(product);
+                        }
+                    });
+                }
+
+                // Image gallery thumbnails
+                const thumbs = document.querySelectorAll('.product-gallery__thumb');
+                const mainImg = document.querySelector('#mainImage img');
+                const images = this.product.images || [];
+
+                thumbs.forEach(thumb => {
+                    thumb.addEventListener('click', () => {
+                        const idx = parseInt(thumb.dataset.index);
+                        if (images[idx] && mainImg) {
+                            mainImg.src = images[idx];
+                            thumbs.forEach(t => t.classList.remove('active'));
+                            thumb.classList.add('active');
+                        }
+                    });
+                });
+
+                // Accordion
+                const accordionHeaders = document.querySelectorAll('.product-info__header');
+                accordionHeaders.forEach(header => {
+                    header.addEventListener('click', () => {
+                        const item = header.parentElement;
+                        const isOpen = item.classList.contains('open');
+                        item.classList.toggle('open');
+                        header.setAttribute('aria-expanded', !isOpen);
+                    });
+                });
+            }
+
+            showError(message) {
+                const container = document.getElementById('productContainer');
+                container.innerHTML = `
+                    <div class="product-error">
+                        <h2>Producto no encontrado</h2>
+                        <p style="color: var(--mid-gray); margin-bottom: 1.5rem;">${message}</p>
+                        <a href="catalog.html" class="btn btn--primary">Ver Catálogo</a>
+                    </div>
+                `;
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            new ProductPage();
         });
     </script>
 </body>

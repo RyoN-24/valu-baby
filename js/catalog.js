@@ -85,14 +85,17 @@ class CatalogPage {
 
         productsGrid.innerHTML = this.products.map((product, index) => `
       <div class="product-card reveal reveal-delay-${(index % 3) + 1}">
-        <div class="product-card__image">
-          <img src="${product.images[0]}" alt="${product.name}" loading="lazy">
-          ${product.badge ? `<span class="product-card__badge">${product.badge}</span>` : ''}
-        </div>
-        <div class="product-card__info">
-          <h3 class="product-card__name">${product.name}</h3>
-          <p class="product-card__price">S/ ${parseFloat(product.price).toFixed(2)}</p>
-          <button class="quick-add-btn" data-product='${JSON.stringify({
+        <a href="product.html?id=${product.id}" class="product-card__link">
+          <div class="product-card__image">
+            <img src="${product.images[0]}" alt="${product.name}" loading="lazy">
+            ${product.badge ? `<span class="product-card__badge">${product.badge}</span>` : ''}
+          </div>
+          <div class="product-card__info">
+            <h3 class="product-card__name">${product.name}</h3>
+            <p class="product-card__price">S/ ${parseFloat(product.price).toFixed(2)}</p>
+          </div>
+        </a>
+        <button class="quick-add-btn" data-product='${JSON.stringify({
             id: product.id,
             name: product.name,
             price: product.price,
@@ -107,7 +110,6 @@ class CatalogPage {
             </svg>
             <span>Compra Rápida</span>
           </button>
-        </div>
       </div>
     `).join('');
 

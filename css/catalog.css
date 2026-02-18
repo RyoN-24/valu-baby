@@ -127,6 +127,17 @@
     color: var(--blush-deep);
 }
 
+/* Product Card Link */
+.product-card__link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.product-card__link:hover .product-card__name {
+    color: var(--blush-deep);
+}
+
 /* Mobile Adjustments */
 @media (max-width: 768px) {
     .catalog-header {
